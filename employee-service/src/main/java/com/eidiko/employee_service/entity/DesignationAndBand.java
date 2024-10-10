@@ -9,15 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
-@Table(name = "roles")
-public class Role {
+@Builder
+public class DesignationAndBand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    private long roleNumber;
-
-    private String roleName;
+    private String designationName;
+    private String band;
 }

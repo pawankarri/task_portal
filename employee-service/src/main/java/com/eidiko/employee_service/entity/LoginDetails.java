@@ -26,10 +26,7 @@ public class LoginDetails {
     @Size(min = 8, max = 50, message = "Password must be between 8 and 50 characters")
     private String password;
 
-    @NotBlank(message = "Status is required")
-    @Pattern(regexp = "ACTIVE|INACTIVE", message = "Status must be either ACTIVE or INACTIVE")
-    private String status;
-
     @OneToOne
+    @JoinColumn(name = "emp_id", referencedColumnName = "empId")
     private Employee employee;
 }
