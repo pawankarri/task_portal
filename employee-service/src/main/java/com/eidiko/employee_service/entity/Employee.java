@@ -1,5 +1,5 @@
 package com.eidiko.employee_service.entity;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -46,25 +46,29 @@ public class Employee {
     private String about;
 
     // One-to-One Relationship with LoginDetails
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "employee",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private LoginDetails loginDetails;
 
+    @JsonIgnore
     @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Role> empRoles;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private DesignationAndBand designation;
 
     // One-to-One Relationship with EmpProfilePic
+    @JsonIgnore
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private EmpProfilePic empProfilePic;
 
-    // One-to-Many Relationship with ReportingManager (for employees managed by this employee)
+    // One-to-Many Relationship with ReportingManager (for employees managed by this employee)@JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ReportingManager> reportingManagerForEmployee;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ReportingManager> reportingManagerForManager;
-
-
-}
+    }
