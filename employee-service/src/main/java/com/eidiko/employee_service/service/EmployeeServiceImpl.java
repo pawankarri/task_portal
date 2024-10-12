@@ -2,8 +2,9 @@ package com.eidiko.employee_service.service;
 
 import com.eidiko.employee_service.dto.EmployeeDto;
 import com.eidiko.employee_service.entity.Employee;
+import com.eidiko.employee_service.exception.EmployeeNotFoundException;
+import com.eidiko.employee_service.modelMapper.EmployeeMapper;
 import com.eidiko.employee_service.repository.EmployeeRepository;
-import com.eidiko.employee_service.specification.EmployeeSpecification;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -17,32 +18,38 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     private EmployeeRepository employeeRepository;
+    private EmployeeMapper employeeMapper;
 
     @Override
     public EmployeeDto createEmployee(Employee employee) {
-        return null;
+        Employee saved = employeeRepository.save(employee);
+        return employeeMapper.employeeToEmployeeDto(saved);
+
     }
 
     @Override
     public List<EmployeeDto> getAllEmployees() {
-        return List.of();
+        List<Employee> listOfEmployees = employeeRepository.findAll();
+
+        return listOfEmployees.
+                stream().
+                map((emp) -> employeeMapper
+                        .employeeToEmployeeDto(emp)).
+                        toList();
+
     }
 
     @Override
     public Optional<EmployeeDto> getEmployeeById(long id) {
-        return Optional.empty();
+        Employee employee = employeeRepository.findById(id).
+                orElseThrow(() -> new EmployeeNotFoundException(id));
+
+        EmployeeDto employeeDto = employeeMapper.employeeToEmployeeDto(employee);
+        return Optional.ofNullable(employeeDto);
+
     }
 
-    @Override
-    public boolean searchEmployeeById(long id) {
-        return false;
-    }
 
-//    public List<Employee> searchEmployees(Long empId, String empName) {
-//        Specification<Employee> spec = Specification.where(EmployeeSpecification.hasEmpId(empId))
-//                .and(EmployeeSpecification.hasEmpName(empName));
-//        return employeeRepository.findAll(spec);
-//    }
 public List<Employee> searchEmployees(Long empId, String empName) {
     if (empId != null) {
         return employeeRepository.findById(empId)
@@ -60,7 +67,17 @@ public List<Employee> searchEmployees(Long empId, String empName) {
         return employeeRepository.searchByEmpNamePattern(empName);
     }
 
-    // If no criteria provided, return all employees or an empty list
+
     return employeeRepository.findAll();
 }
+
+    @Override
+    public EmployeeDto updateEmployee(long id, Employee employee) {
+        return null;
+    }
+
+    @Override
+    public EmployeeDto deleteEmployee(long id) {
+        return null;
+    }
 }

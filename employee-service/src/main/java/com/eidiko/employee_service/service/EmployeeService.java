@@ -10,9 +10,14 @@ import java.util.Optional;
 public interface EmployeeService {
 
     EmployeeDto createEmployee(Employee employee);
+
     List<EmployeeDto> getAllEmployees();
+
     Optional<EmployeeDto> getEmployeeById(long id);
-    boolean searchEmployeeById(long id);
 
     List<Employee> searchEmployees(Long empId, String empName);
+
+    EmployeeDto updateEmployee(long id , Employee  employee);
+
+    EmployeeDto deleteEmployee(long id) ;
 }
