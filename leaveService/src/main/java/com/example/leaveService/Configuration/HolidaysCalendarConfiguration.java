@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class HolidaysCalendarConfiguration {
     @Bean
-    public HolidaysCalendarService holidaysCalendarService()a
+    public HolidaysCalendarService holidaysCalendarService()
     {
         return new HolidaysCalendarService();
     }

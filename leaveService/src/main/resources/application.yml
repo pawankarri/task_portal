@@ -1,13 +1,14 @@
 spring:
+  application:
+    name: leave-service
   datasource:
-    url: jdbc:oracle:thin:@//localhost:1521/xe
-    username: kishan
-    password: krish123
-    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:mysql://localhost:3306/task_portal
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-    database: oracle
 server:
   port: 8091

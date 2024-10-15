@@ -18,8 +18,7 @@ public class LeavesAsPerBands  {
 
 
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer leavesAsPerBandId;
 
     private long bandId;
