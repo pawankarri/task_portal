@@ -42,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Optional<EmployeeDto> getEmployeeById(long id) {
         Employee employee = employeeRepository.findById(id).
-                orElseThrow(() -> new EmployeeNotFoundException(id));
+                orElseThrow(() -> new EmployeeNotFoundException("employee not found with: " + id));
 
         EmployeeDto employeeDto = employeeMapper.employeeToEmployeeDto(employee);
         return Optional.ofNullable(employeeDto);
