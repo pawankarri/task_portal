@@ -6,7 +6,7 @@ import com.eidiko.employee_service.exception.EmployeeNotFoundException;
 import com.eidiko.employee_service.modelMapper.EmployeeMapper;
 import com.eidiko.employee_service.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.domain.Specification;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +24,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDto createEmployee(Employee employee) {
         Employee saved = employeeRepository.save(employee);
         return employeeMapper.employeeToEmployeeDto(saved);
-
     }
 
     @Override
@@ -66,7 +65,6 @@ public List<Employee> searchEmployees(Long empId, String empName) {
         // If no exact match found, perform pattern matching
         return employeeRepository.searchByEmpNamePattern(empName);
     }
-
 
     return employeeRepository.findAll();
 }

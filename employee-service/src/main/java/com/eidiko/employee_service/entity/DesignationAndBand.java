@@ -12,9 +12,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 public class DesignationAndBand {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String designationName;
+
     private String band;
 }

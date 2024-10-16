@@ -1,5 +1,6 @@
 package com.eidiko.employee_service.controller;
 
+import com.eidiko.employee_service.dto.EmployeeDto;
 import com.eidiko.employee_service.entity.Employee;
 import com.eidiko.employee_service.repository.EmployeeRepository;
 import com.eidiko.employee_service.service.EmployeeService;
@@ -19,15 +20,13 @@ public class EmployeeController {
     private EmployeeRepository employeeRepository;
     private EmployeeService employeeService;
 
-    @PostMapping()
-    public Employee createEmployee(@Valid @RequestBody Employee employee){
-
-      return employeeRepository.save(employee);
+    @PostMapping("/addEmployees")
+    public EmployeeDto createEmployee(@Valid @RequestBody Employee employee){
+      return employeeService.createEmployee(employee);
     }
 
     @GetMapping
     public List<Employee> getAllEmployees(){
-
         List<Employee> all = employeeRepository.findAll();
 
         log.info("list of employee {}" ,all.size());
