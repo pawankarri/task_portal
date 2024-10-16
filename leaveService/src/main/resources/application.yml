@@ -1,3 +1,6 @@
+server:
+  port: 8091
+
 spring:
   application:
     name: leave-service
@@ -7,8 +10,10 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    hibernate:
-      ddl-auto: update
     show-sql: true
-server:
-  port: 8091
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        hbm2ddl:
+          auto: update

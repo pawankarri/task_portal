@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @Builder
 @Table(name = "reportingManager")
 public class ReportingManager {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

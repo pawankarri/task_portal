@@ -7,9 +7,15 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+
     // Exact match
     List<Employee> findByEmpName(String empName);
+
     // Pattern matching
     @Query("SELECT e FROM Employee e WHERE e.empName LIKE %:empName%")
     List<Employee> searchByEmpNamePattern(@Param("empName") String empName);
+
+    @Query("SELECT e FROM Employee e WHERE e.resigned = TRUE")
+    List<Employee> findByResignedTrue();
+
 }

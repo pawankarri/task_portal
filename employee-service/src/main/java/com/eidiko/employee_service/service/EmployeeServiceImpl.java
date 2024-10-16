@@ -6,7 +6,6 @@ import com.eidiko.employee_service.exception.EmployeeNotFoundException;
 import com.eidiko.employee_service.modelMapper.EmployeeMapper;
 import com.eidiko.employee_service.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,21 +30,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> listOfEmployees = employeeRepository.findAll();
 
         return listOfEmployees.
-                stream().
-                map((emp) -> employeeMapper
-                        .employeeToEmployeeDto(emp)).
-                        toList();
-
+                stream()
+                .map((emp) -> employeeMapper.employeeToEmployeeDto(emp))
+                .toList();
     }
 
     @Override
-    public Optional<EmployeeDto> getEmployeeById(long id) {
+    public EmployeeDto getEmployeeById(Long id) {
         Employee employee = employeeRepository.findById(id).
                 orElseThrow(() -> new EmployeeNotFoundException("employee not found with: " + id));
 
-        EmployeeDto employeeDto = employeeMapper.employeeToEmployeeDto(employee);
-        return Optional.ofNullable(employeeDto);
-
+        return employeeMapper.employeeToEmployeeDto(employee);
     }
 
 
@@ -77,5 +72,13 @@ public List<Employee> searchEmployees(Long empId, String empName) {
     @Override
     public EmployeeDto deleteEmployee(long id) {
         return null;
+    }
+
+    @Override
+    public List<EmployeeDto> fetchResignedEmp() {
+        return employeeRepository.findByResignedTrue()
+                .stream()
+                .map(emp -> employeeMapper.employeeToEmployeeDto(emp))
+                .toList();
     }
 }

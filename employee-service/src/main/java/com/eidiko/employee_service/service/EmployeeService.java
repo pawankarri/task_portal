@@ -5,7 +5,6 @@ import com.eidiko.employee_service.entity.Employee;
 
 
 import java.util.List;
-import java.util.Optional;
 
 public interface EmployeeService {
 
@@ -13,11 +12,14 @@ public interface EmployeeService {
 
     List<EmployeeDto> getAllEmployees();
 
-    Optional<EmployeeDto> getEmployeeById(long id);
+    EmployeeDto getEmployeeById(Long id);
 
     List<Employee> searchEmployees(Long empId, String empName);
 
-    EmployeeDto updateEmployee(long id , Employee  employee);
+    EmployeeDto updateEmployee(long id, Employee  employee);
 
-    EmployeeDto deleteEmployee(long id) ;
+    EmployeeDto deleteEmployee(long id);
+
+    List<EmployeeDto> fetchResignedEmp();
+
 }

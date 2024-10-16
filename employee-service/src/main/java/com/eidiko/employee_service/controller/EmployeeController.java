@@ -2,7 +2,6 @@ package com.eidiko.employee_service.controller;
 
 import com.eidiko.employee_service.dto.EmployeeDto;
 import com.eidiko.employee_service.entity.Employee;
-import com.eidiko.employee_service.exception.EmployeeNotFoundException;
 import com.eidiko.employee_service.repository.EmployeeRepository;
 import com.eidiko.employee_service.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -27,16 +26,13 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> getAllEmployees(){
-        List<Employee> all = employeeRepository.findAll();
-
-        log.info("list of employee {}" ,all.size());
-        //System.out.println("list of employee {}" + all);
-        return all;
+    public List<EmployeeDto> getAllEmployees(){
+        return employeeService.getAllEmployees();
     }
- @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable long id){
-       return  employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException("employee not found"));
+
+    @GetMapping("/{id}")
+    public EmployeeDto getEmployeeById(@PathVariable long id) {
+       return employeeService.getEmployeeById(id);
     }
 
     @GetMapping("/search")
@@ -45,4 +41,10 @@ public class EmployeeController {
             @RequestParam(required = false) String empName) {
         return employeeService.searchEmployees(empId, empName);
     }
+
+    @GetMapping("/resigned")
+    public List<EmployeeDto> getAllResignedEmp() {
+        return employeeService.fetchResignedEmp();
+    }
+
 }

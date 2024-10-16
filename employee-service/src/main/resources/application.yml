@@ -12,8 +12,9 @@ spring:
 
   jpa:
     show-sql: true
-    hibernate:
-      ddl-auto: update
-
-
-#     database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        hbm2ddl:
+          auto: update

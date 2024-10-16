@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmployeeMapper {
+
     @Autowired
     private ModelMapper modelMapper;
 
@@ -18,4 +19,5 @@ public class EmployeeMapper {
     public Employee employeeDtoToEmployee(EmployeeDto employeeDto){
         return modelMapper.map(employeeDto , Employee.class);
     }
+
 }

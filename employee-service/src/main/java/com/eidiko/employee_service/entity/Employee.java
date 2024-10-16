@@ -17,6 +17,7 @@ import java.util.List;
 @Builder
 @Table(name = "employees")
 public class Employee {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long empId;
@@ -42,37 +43,19 @@ public class Employee {
     @NotNull(message = "Date of joining is required")
     private LocalDate dateOfJoining;
 
-   // @NotNull(message = "isResigned flag is required")
-    private boolean isResigned = false;
+    // @NotNull(message = "isResigned flag is required")
+    private boolean resigned = false;
 
     @Size(max = 500, message = "About section must be less than 500 characters")
     private String about;
 
     @Lob
-    private String profilePicturePath;
+    private String empProfilePicPath;
 
-    @JsonIgnore
-    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Role> empRoles;
 
     private Long manager;
-
-//    @JsonIgnore
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private DesignationAndBand designation;
-
-    // One-to-One Relationship with EmpProfilePic
-//    @JsonIgnore
-//    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private EmpProfilePic empProfilePic;
-
-    // One-to-Many Relationship with ReportingManager (for employees managed by this employee)@JsonIgnore
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Set<ReportingManager> reportingManagerForEmployee;
-//
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Set<ReportingManager> reportingManagerForManager;
 
 }

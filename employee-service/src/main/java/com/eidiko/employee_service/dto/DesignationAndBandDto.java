@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class DesignationAndBandDto {
+
     private long id;
-
     private String designationName;
-
     private String band;
+
 }
