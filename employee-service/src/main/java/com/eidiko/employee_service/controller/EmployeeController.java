@@ -2,6 +2,7 @@ package com.eidiko.employee_service.controller;
 
 import com.eidiko.employee_service.dto.EmployeeDto;
 import com.eidiko.employee_service.entity.Employee;
+import com.eidiko.employee_service.exception.EmployeeNotFoundException;
 import com.eidiko.employee_service.repository.EmployeeRepository;
 import com.eidiko.employee_service.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -35,7 +36,7 @@ public class EmployeeController {
     }
  @GetMapping("/{id}")
     public Employee getEmployeeById(@PathVariable long id){
-       return  employeeRepository.findById(id).get();
+       return  employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException("employee not found"));
     }
 
     @GetMapping("/search")
