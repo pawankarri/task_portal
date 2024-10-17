@@ -7,8 +7,10 @@ import com.eidiko.employee_service.modelMapper.EmployeeMapper;
 import com.eidiko.employee_service.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -64,7 +66,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto updateEmployee(long id, Employee employee) {
-        return null;
+         Employee employees=employeeRepository.findById(id).map(employee1 -> {
+            employee1.setEmpName(employee.getEmpName());
+            employee1.setEmailId(employee.getEmailId());
+            employee1.setAbout(employee.getAbout());
+            employee1.setManager(employee.getManager());
+            employee1.setPassword(employee.getPassword());
+            employee1.setDateOfJoining(employee.getDateOfJoining());
+            employee1.setEmpRoles(employee.getEmpRoles());
+            employee1.setPhoneNumber(employee.getPhoneNumber());
+            employee1.setEmpProfilePicPath(employee.getEmpProfilePicPath());
+            return employeeRepository.save(employee1);
+        }).orElseThrow(()->new ResourceAccessException("employee not found"));
+        System.out.println(employees);
+         return employeeMapper.employeeToEmployeeDto(employees);
     }
 
     @Override

@@ -47,4 +47,10 @@ public class EmployeeController {
         return employeeService.fetchResignedEmp();
     }
 
+    @PutMapping("/updateEmployee/{id}")
+    public EmployeeDto updateEmployee(@PathVariable long id,@RequestBody Employee employee)
+    {
+        return employeeService.updateEmployee(id,employee);
+    }
+
 }
