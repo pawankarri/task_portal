@@ -49,6 +49,7 @@ public class Employee {
     @Size(max = 500, message = "About section must be less than 500 characters")
     private String about;
 
+    @Column(name = "profile_pic")
     @Lob
     private String empProfilePicPath;
 

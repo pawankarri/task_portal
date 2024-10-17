@@ -18,8 +18,6 @@ public interface EmployeeService {
 
     EmployeeDto updateEmployee(long id, Employee  employee);
 
-    EmployeeDto deleteEmployee(long id);
-
     List<EmployeeDto> fetchResignedEmp();
 
 }

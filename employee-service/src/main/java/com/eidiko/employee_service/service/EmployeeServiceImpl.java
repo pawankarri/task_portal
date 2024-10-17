@@ -9,12 +9,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
-
 
     private EmployeeRepository employeeRepository;
     private EmployeeMapper employeeMapper;
@@ -44,33 +42,28 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-public List<Employee> searchEmployees(Long empId, String empName) {
-    if (empId != null) {
-        return employeeRepository.findById(empId)
-                .map(List::of)
-                .orElse(List.of());
-    }
-
-    if (empName != null && !empName.isEmpty()) {
-        // Check for exact match first
-        List<Employee> exactMatches = employeeRepository.findByEmpName(empName);
-        if (!exactMatches.isEmpty()) {
-            return exactMatches;
+    public List<Employee> searchEmployees(Long empId, String empName) {
+        if (empId != null) {
+            return employeeRepository.findById(empId)
+                    .map(List::of)
+                    .orElse(List.of());
         }
-        // If no exact match found, perform pattern matching
-        return employeeRepository.searchByEmpNamePattern(empName);
-    }
 
-    return employeeRepository.findAll();
-}
+        if (empName != null && !empName.isEmpty()) {
+            // Check for exact match first
+            List<Employee> exactMatches = employeeRepository.findByEmpName(empName);
+            if (!exactMatches.isEmpty()) {
+                return exactMatches;
+            }
+            // If no exact match found, perform pattern matching
+            return employeeRepository.searchByEmpNamePattern(empName);
+        }
+
+        return employeeRepository.findAll();
+    }
 
     @Override
     public EmployeeDto updateEmployee(long id, Employee employee) {
-        return null;
-    }
-
-    @Override
-    public EmployeeDto deleteEmployee(long id) {
         return null;
     }
 
@@ -81,4 +74,5 @@ public List<Employee> searchEmployees(Long empId, String empName) {
                 .map(emp -> employeeMapper.employeeToEmployeeDto(emp))
                 .toList();
     }
+
 }
