@@ -76,6 +76,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee1.setEmpRoles(employee.getEmpRoles());
             employee1.setPhoneNumber(employee.getPhoneNumber());
             employee1.setEmpProfilePicPath(employee.getEmpProfilePicPath());
+            employee1.setResigned(employee.isResigned());
             return employeeRepository.save(employee1);
         }).orElseThrow(()->new ResourceAccessException("employee not found"));
         System.out.println(employees);
