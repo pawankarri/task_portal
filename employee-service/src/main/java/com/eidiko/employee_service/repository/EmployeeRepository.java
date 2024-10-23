@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
+    Optional<Employee> findByEmailId(String emailId);
+
     Optional<Employee> findByEmpNameOrEmpId(String empName, Long empId);
 
     // Pattern matching

@@ -54,7 +54,7 @@ public class Employee {
     private String empProfilePicPath;
 
 //    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Role> empRoles;
 
     private Long manager;

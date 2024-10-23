@@ -2,11 +2,11 @@ package com.eidiko.employee_service.controller;
 
 import com.eidiko.employee_service.dto.EmployeeDto;
 import com.eidiko.employee_service.entity.Employee;
-import com.eidiko.employee_service.repository.EmployeeRepository;
 import com.eidiko.employee_service.service.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,17 +19,19 @@ public class EmployeeController {
 
     private EmployeeService employeeService;
 
-    @PostMapping("/addEmployees")
+    @PostMapping("/addEmployee")
     public EmployeeDto createEmployee(@Valid @RequestBody Employee employee) {
       return employeeService.createEmployee(employee);
     }
 
-    @GetMapping
+    @GetMapping("/get")
+    @PreAuthorize("hasRole('ROLE_HR')")
     public List<EmployeeDto> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_HR')")
     public EmployeeDto getEmployeeById(@PathVariable long id) {
        return employeeService.getEmployeeById(id);
     }
