@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -45,23 +44,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     public List<Employee> searchEmployees(Long empId, String empName) {
-        if (empId != null) {
-            return employeeRepository.findById(empId)
-                    .map(List::of)
-                    .orElse(List.of());
-        }
+        if (empId != null)
+            return List.of(employeeRepository.findByEmpNameOrEmpId(empName, empId)
+                    .orElseThrow(() -> new EmployeeNotFoundException("employee not found")));
 
-        if (empName != null && !empName.isEmpty()) {
-            // Check for exact match first
-            List<Employee> exactMatches = employeeRepository.findByEmpName(empName);
-            if (!exactMatches.isEmpty()) {
-                return exactMatches;
-            }
-            // If no exact match found, perform pattern matching
-            return employeeRepository.searchByEmpNamePattern(empName);
-        }
-
-        return employeeRepository.findAll();
+        // If no exact match found, perform pattern matching
+        return employeeRepository.searchByEmpNamePattern(empName);
     }
 
     @Override

@@ -17,16 +17,15 @@ import java.util.List;
 @Slf4j
 public class EmployeeController {
 
-    private EmployeeRepository employeeRepository;
     private EmployeeService employeeService;
 
     @PostMapping("/addEmployees")
-    public EmployeeDto createEmployee(@Valid @RequestBody Employee employee){
+    public EmployeeDto createEmployee(@Valid @RequestBody Employee employee) {
       return employeeService.createEmployee(employee);
     }
 
     @GetMapping
-    public List<EmployeeDto> getAllEmployees(){
+    public List<EmployeeDto> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
@@ -48,8 +47,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/updateEmployee/{id}")
-    public EmployeeDto updateEmployee(@PathVariable long id,@RequestBody Employee employee)
-    {
+    public EmployeeDto updateEmployee(@PathVariable long id,@RequestBody Employee employee) {
         return employeeService.updateEmployee(id,employee);
     }
 

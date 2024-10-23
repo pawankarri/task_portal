@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
+
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    // Exact match
-    List<Employee> findByEmpName(String empName);
+    Optional<Employee> findByEmpNameOrEmpId(String empName, Long empId);
 
     // Pattern matching
     @Query("SELECT e FROM Employee e WHERE e.empName LIKE %:empName%")
